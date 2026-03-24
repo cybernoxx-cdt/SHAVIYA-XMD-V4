@@ -76,26 +76,36 @@ async (robin, mek, m, {
             }
         }, { quoted: mek });
 
-        // Try sending voice note — skip if URL fails
+        // Voice note — generated locally, no external URL needed
         try {
-            const audioUrls = [
-                "https://files.catbox.moe/s1pn69.opus",
-                "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            ];
-            for (const url of audioUrls) {
-                try {
-                    const res = await axios.get(url, { responseType: 'arraybuffer', timeout: 8000 });
-                    if (res.status === 200) {
-                        await robin.sendMessage(from, {
-                            audio: Buffer.from(res.data),
-                            mimetype: 'audio/ogg; codecs=opus',
-                            ptt: true
-                        }, { quoted: fakevCard });
-                        break;
-                    }
-                } catch {}
-            }
-        } catch {}
+            const fs = require('fs');
+            const path = require('path');
+            const ffmpeg = require('fluent-ffmpeg');
+            const tmpDir = path.join(__dirname, '../temp');
+            if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+            const outPath = path.join(tmpDir, `alive_${Date.now()}.opus`);
+
+            await new Promise((resolve, reject) => {
+                ffmpeg()
+                    .input('sine=frequency=520:duration=2')
+                    .inputFormat('lavfi')
+                    .audioCodec('libopus')
+                    .format('opus')
+                    .on('end', resolve)
+                    .on('error', reject)
+                    .save(outPath);
+            });
+
+            await robin.sendMessage(from, {
+                audio: fs.readFileSync(outPath),
+                mimetype: 'audio/ogg; codecs=opus',
+                ptt: true
+            }, { quoted: fakevCard });
+
+            fs.unlinkSync(outPath);
+        } catch (voiceErr) {
+            console.log('[ALIVE] Voice note skipped:', voiceErr.message);
+        }
 
     } catch (e) {
         console.log("Alive Error:", e);
