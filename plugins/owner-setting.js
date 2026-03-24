@@ -25,7 +25,20 @@ async (conn, mek, m, { isOwner, reply }) => {
 cmd({ pattern: "restart", desc: "Restart the bot.", category: "owner", react: "🔄", filename: __filename },
 async (conn, mek, m, { isOwner, reply }) => {
     if (!isOwner) return reply("❌ Owner only!");
-    await reply("🔄 Restarting..."); process.exit(0);
+    await reply(
+        `╭━━━〔 *🔄 RESTARTING* 〕━━━⬣\n` +
+        `┃\n` +
+        `┃ 🤖 *Bot:* SHAVIYA-XMD V4\n` +
+        `┃ ⚡ *Status:* Restarting...\n` +
+        `┃ ⏱️ *ETA:* ~15 seconds\n` +
+        `┃\n` +
+        `┃ ℹ️ Active menus will reset.\n` +
+        `┃ Please re-run commands after.\n` +
+        `┃\n` +
+        `╰━━━━━━━━━━━━━━━━━━━━━⬣\n` +
+        `> © 𝗦𝗛𝗔𝗩𝗜𝗬𝗔-𝗫𝗠𝗗 𝗩𝟰 💎`
+    );
+    setTimeout(() => process.exit(0), 3000);
 });
 
 // 3. Broadcast
