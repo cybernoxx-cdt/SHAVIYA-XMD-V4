@@ -1,0 +1,23 @@
+{
+  "name": "SHAVIYA-XMD V4",
+  "description": "SHAVIYA-XMD V4 FIXED — Premium WhatsApp Bot",
+  "repository": "https://github.com/yourusername/SHAVIYA-XMD-V4",
+  "logo": "https://files.catbox.moe/s1pn69.jpg",
+  "keywords": ["whatsapp", "bot", "shaviya"],
+  "env": {
+    "SESSION_ID":         { "description": "WhatsApp session (shavi& or MEGA link)", "required": true },
+    "OWNER_NUMBER":       { "description": "Owner WhatsApp number (no +)", "required": true, "value": "94707085822" },
+    "OWNER_NAME":         { "description": "Owner name", "required": false, "value": "Savendra" },
+    "MONGODB_URI":        { "description": "MongoDB connection URI", "required": false },
+    "PREFIX":             { "description": "Bot command prefix", "value": ".", "required": false },
+    "MODE":               { "description": "public / private / inbox / groups", "value": "public", "required": false },
+    "BOT_NAME":           { "description": "Bot display name", "value": "SHAVIYA-XMD V4", "required": false },
+    "BOT_VERSION":        { "description": "Bot version", "value": "V4", "required": false },
+    "GEMINI_API_KEY":     { "description": "Google Gemini API key", "required": false },
+    "OPENAI_API_KEY":     { "description": "OpenAI API key", "required": false },
+    "ANTI_DELETE":        { "description": "Anti-delete feature", "value": "false", "required": false }
+  },
+  "formation": { "web": { "quantity": 1, "size": "free" } },
+  "buildpacks": [{ "url": "heroku/nodejs" }],
+  "stack": "heroku-22"
+}

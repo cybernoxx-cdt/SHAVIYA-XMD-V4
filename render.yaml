@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: shaviya-xmd-v4
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install --legacy-peer-deps
+    startCommand: node index.js
+    envVars:
+      - key: SESSION_ID
+        sync: false
+      - key: OWNER_NUMBER
+        value: "94707085822"
+      - key: OWNER_NAME
+        value: "Savendra"
+      - key: PREFIX
+        value: "."
+      - key: MODE
+        value: "public"
+      - key: BOT_NAME
+        value: "SHAVIYA-XMD V4"
+      - key: BOT_VERSION
+        value: "V4"
+      - key: NODE_ENV
+        value: "production"
+      - key: YTDL_NO_UPDATE
+        value: "1"
