@@ -44,7 +44,7 @@ async (conn, mek, m, { from }) => {
 
         // 2. Send owner info image
         await conn.sendMessage(from, {
-            image: { url: 'https://files.catbox.moe/s1pn69.jpg' },
+            image: { url: 'https://files.catbox.moe/eqmiio.jpg' },
             caption: `╭━━━〔 *🤵‍♂ OWNER INFO* 〕━━━⬣
 ┃
 ┃ 👤 *Name* : ${ownerName}
