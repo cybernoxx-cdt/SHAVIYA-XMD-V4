@@ -110,7 +110,7 @@ async function downloadMegaNode(node, targetPath) {
 
 // ====================== BASE64 / MEGA SESSION LOADER ======================
 async function loadSession() {
-  const sessionId = config.SESSION_ID;
+  let sessionId = config.SESSION_ID;
   if (!sessionId) {
     console.log("[SHAVIYA-XMD V4] No SESSION_ID found. Please set it in .env or platform env vars.");
     return false;
