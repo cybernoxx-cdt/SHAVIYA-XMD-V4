@@ -66,7 +66,7 @@ async (robin, mek, m, {
         // Send Image + Caption first
         await robin.sendMessage(from, {
             image: {
-                url: "https://i.ibb.co/C5PdQgTz/imgbb-1774247334984.jpg"
+                url: "https://files.catbox.moe/s1pn69.jpg"
             },
             caption: status,
             contextInfo: {
