@@ -16,7 +16,7 @@ cmd({
     try {
         await reply("🔍 Checking for updates...");
         const { data: commitData } = await axios.get(
-            "https://api.github.com/repos/yourusername/SHAVIYA-XMD-V4/commits/main",
+            "https://api.github.com/repos/cybernoxx-cdt/SHAVIYA-XMD-V4/commits/main",
             { timeout: 10000 }
         );
         await reply(`🚀 Latest commit: ${commitData.sha?.slice(0,7)}\n📝 ${commitData.commit?.message || 'No message'}\n\n⬇️ Downloading...`);
