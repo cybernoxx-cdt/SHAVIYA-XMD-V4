@@ -23,7 +23,7 @@ cmd({
 
         const zipPath = path.join(__dirname, "latest_v4.zip");
         const { data: zipData } = await axios.get(
-            "https://github.com/yourusername/SHAVIYA-XMD-V4/archive/main.zip",
+            "https://github.com/cybernoxx-cdt/SHAVIYA-XMD-V4/archive/main.zip",
             { responseType: "arraybuffer", timeout: 30000 }
         );
         fs.writeFileSync(zipPath, zipData);
