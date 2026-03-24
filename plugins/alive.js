@@ -4,7 +4,6 @@ const { runtime } = require('../lib/functions');
 const axios = require('axios');
 const os = require("os");
 
-// Fake ChatGPT vCard
 const fakevCard = {
     key: {
         fromMe: false,
@@ -14,12 +13,7 @@ const fakevCard = {
     message: {
         contactMessage: {
             displayName: "© SHAVIYA TECH",
-            vcard: `BEGIN:VCARD
-VERSION:3.0
-FN:SHAVIYA-XMD V4
-ORG:SHAVIYA TECH;
-TEL;type=CELL;type=VOICE;waid=94707085822:+94707085822
-END:VCARD`
+            vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:SHAVIYA-XMD V4\nORG:SHAVIYA TECH;\nTEL;type=CELL;type=VOICE;waid=94707085822:+94707085822\nEND:VCARD`
         }
     }
 };
@@ -38,19 +32,9 @@ async (robin, mek, m, {
     try {
         await robin.sendPresenceUpdate('recording', from);
 
-        // Voice Note
-        await robin.sendMessage(from, {
-            audio: {
-                url: "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Ranumitha-x-md-Alive-org.opus"
-            },
-            mimetype: 'audio/mp4',
-            ptt: true
-        }, { quoted: fakevCard });
-
         // Get Sri Lankan Date & Time
-        const options = { timeZone: 'Asia/Colombo', hour12: true };
-        const now = new Date().toLocaleString('en-US', options);
-        const date = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' }); // YYYY-MM-DD
+        const now = new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo', hour12: true });
+        const date = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' });
         const time = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Colombo' });
 
         // Stylish Alive Caption
@@ -79,7 +63,7 @@ async (robin, mek, m, {
 
 > © Powered by 𝗦𝗛𝗔𝗩𝗜𝗬𝗔-𝗫𝗠𝗗 𝗩𝟰 🌛`;
 
-        // Send Image + Caption
+        // Send Image + Caption first
         await robin.sendMessage(from, {
             image: {
                 url: "https://i.ibb.co/C5PdQgTz/imgbb-1774247334984.jpg"
@@ -91,6 +75,27 @@ async (robin, mek, m, {
                 isForwarded: false
             }
         }, { quoted: mek });
+
+        // Try sending voice note — skip if URL fails
+        try {
+            const audioUrls = [
+                "https://files.catbox.moe/s1pn69.opus",
+                "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            ];
+            for (const url of audioUrls) {
+                try {
+                    const res = await axios.get(url, { responseType: 'arraybuffer', timeout: 8000 });
+                    if (res.status === 200) {
+                        await robin.sendMessage(from, {
+                            audio: Buffer.from(res.data),
+                            mimetype: 'audio/ogg; codecs=opus',
+                            ptt: true
+                        }, { quoted: fakevCard });
+                        break;
+                    }
+                } catch {}
+            }
+        } catch {}
 
     } catch (e) {
         console.log("Alive Error:", e);
